@@ -8,6 +8,7 @@ class DiceRollingGame:
         self.highest_score = 0
         self.num_rolls = 0
         self.num_sides = 6  # Default number of sides on the dice
+        self.target_rolls = 10  # Default number of rolls before the game ends
 
     def get_player_name(self):
         # Get the player's name as input
@@ -24,6 +25,17 @@ class DiceRollingGame:
             except ValueError:
                 print("Invalid input. Please enter a valid number of sides.")
 
+    def get_target_rolls(self):
+        # Get the number of rolls before the game ends as input
+        while True:
+            try:
+                self.target_rolls = int(input("Enter the number of rolls before the game ends (minimum 1): "))
+                if self.target_rolls < 1:
+                    raise ValueError
+                break
+            except ValueError:
+                print("Invalid input. Please enter a valid number of rolls.")
+
     def roll_dice(self):
         # Roll the dice and return the result
         return random.randint(1, self.num_sides)
@@ -31,9 +43,9 @@ class DiceRollingGame:
     def play(self):
         # Start the game
         print(f"Welcome, {self.player_name}! Let's play the Dice Rolling Game.")
-        print("Instructions: Roll the dice and try to get the highest score!")
+        print(f"You have {self.target_rolls} rolls to achieve the highest score!")
 
-        while True:
+        while self.num_rolls < self.target_rolls:
             play_again = input("Press Enter to roll the dice or type 'exit' to quit: ")
 
             if play_again.lower() == 'exit':
@@ -59,11 +71,16 @@ class DiceRollingGame:
                 # Player did not roll the highest possible number
                 print("Try again to get a higher score.")
 
+        else:
+            # Player has reached the maximum number of rolls
+            print("Game over! You have reached the maximum number of rolls.")
+
 def main():
     # Create an instance of the DiceRollingGame class and start the game
     game = DiceRollingGame()
     game.get_player_name()
     game.get_num_sides()
+    game.get_target_rolls()
     game.play()
 
 if __name__ == "__main__":
