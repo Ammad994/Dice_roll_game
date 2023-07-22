@@ -5,6 +5,7 @@ class DiceRollingGame:
     def __init__(self):
         self.player_name = ""
         self.score = 0
+        self.highest_score = 0
         self.num_rolls = 0
         self.num_sides = 6  # Default number of sides on the dice
 
@@ -40,6 +41,7 @@ class DiceRollingGame:
                 print(f"Thanks for playing, {self.player_name}!")
                 print(f"You rolled the dice {self.num_rolls} times.")
                 print("Your final score:", self.score)
+                print("Your highest score:", self.highest_score)
                 break
 
             roll_result = self.roll_dice()
@@ -50,6 +52,9 @@ class DiceRollingGame:
                 # Player rolled the highest possible number
                 print("Congratulations! You got the highest score!")
                 self.score += self.num_sides
+
+                if self.score > self.highest_score:
+                    self.highest_score = self.score
             else:
                 # Player did not roll the highest possible number
                 print("Try again to get a higher score.")
