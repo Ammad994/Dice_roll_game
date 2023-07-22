@@ -5,6 +5,7 @@ class DiceRollingGame:
     def __init__(self):
         self.player_name = ""
         self.score = 0
+        self.num_rolls = 0
 
     def get_player_name(self):
         # Get the player's name as input
@@ -24,11 +25,14 @@ class DiceRollingGame:
 
             if play_again.lower() == 'exit':
                 # Player decides to quit the game
-                print("Thanks for playing! Your final score:", self.score)
+                print(f"Thanks for playing, {self.player_name}!")
+                print(f"You rolled the dice {self.num_rolls} times.")
+                print("Your final score:", self.score)
                 break
 
             roll_result = self.roll_dice()
             print(f"You rolled a {roll_result}!")
+            self.num_rolls += 1
 
             if roll_result == 6:
                 # Player rolled a 6 (highest score)
